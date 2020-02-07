@@ -20,20 +20,6 @@ jobs:
         CONFIG_JSON: ${{ secrets.CONFIG_JSON }} # secrets 提供
       run:
         echo $CONFIG_JSON > ./onepoint/config.json
-    - name: install configure SCF CLI and deploy
-      env: 
-        APPID: ${{ secrets.TENCENTCLOUD_APP_ID }} # secrets 提供
-        REGION: ap-hongkong
-        SECRET_ID: ${{ secrets.TENCENTCLOUD_SECRET_ID }}
-        SECRET_KEY: ${{ secrets.TENCENTCLOUD_SECRET_KEY }}
-      run: |
-        sudo pip install scf
-        scf configure set --appid $APPID --region $REGION --secret-id $SECRET_ID --secret-key $SECRET_KEY
-        cp ./onepoint/test/tencent/template.yaml ./onepoint/
-        cd ./onepoint
-        npm install
-        scf deploy -f
-        cd ..
     - name: install nowsh CLI and deploy
       env: 
         TOKEN: ${{ secrets.NOWSH_TOKEN }} # secrets 提供
